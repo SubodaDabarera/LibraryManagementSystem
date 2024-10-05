@@ -1,0 +1,42 @@
+{
+    "users": [
+      {
+        "id": "1",
+        "username": "john_doe",
+        "email": "john.doe@example.com",
+        "password": "john123",
+        "role": "Member",
+        "name": "John Doe",
+        "membershipStatus": "Active",
+        "paymentDue": 15.99,
+        "nextPaymentDate": "2024-11-01"
+      },
+      {
+        "id": "2",
+        "username": "jane_smith",
+        "email": "jane.smith@example.com",
+        "password": "jane123",
+        "role": "Librarian",
+        "name": "Jane Smith"
+      },
+      {
+        "id": "3",
+        "username": "alice_jones",
+        "email": "alice.jones@example.com",
+        "password": "alice123",
+        "role": "HeadOfLibrary",
+        "name": "Alice Jones"
+      },
+      {
+        "id": "4",
+        "username": "bob_brown",
+        "email": "bob.brown@example.com",
+        "password": "bob123",
+        "role": "Member",
+        "name": "Bob Brown",
+        "membershipStatus": "Inactive",
+        "paymentDue": 0,
+        "nextPaymentDate": ""
+      }
+    ]
+  }
