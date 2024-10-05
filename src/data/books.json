@@ -1,0 +1,60 @@
+{
+    "books": [
+      {
+        "id": "1",
+        "title": "The Great Gatsby",
+        "author": {
+          "id": "a1",
+          "name": "F. Scott Fitzgerald",
+          "image": "https://example.com/images/authors/f_scott_fitzgerald.jpg"
+        },
+        "isbn": "9780743273565",
+        "publishedDate": "1925-04-10",
+        "addedDate": "2023-01-15",
+        "genre": "Fiction",
+        "status": "available"
+      },
+      {
+        "id": "2",
+        "title": "To Kill a Mockingbird",
+        "author": {
+          "id": "a2",
+          "name": "Harper Lee",
+          "image": "https://example.com/images/authors/harper_lee.jpg"
+        },
+        "isbn": "9780061120084",
+        "publishedDate": "1960-07-11",
+        "addedDate": "2023-02-20",
+        "genre": "Fiction",
+        "status": "reserved"
+      },
+      {
+        "id": "3",
+        "title": "1984",
+        "author": {
+          "id": "a3",
+          "name": "George Orwell",
+          "image": "https://example.com/images/authors/george_orwell.jpg"
+        },
+        "isbn": "9780451524935",
+        "publishedDate": "1949-06-08",
+        "addedDate": "2023-03-05",
+        "genre": "Dystopian",
+        "status": "unavailable"
+      },
+      {
+        "id": "4",
+        "title": "Pride and Prejudice",
+        "author": {
+          "id": "a4",
+          "name": "Jane Austen",
+          "image": "https://example.com/images/authors/jane_austen.jpg"
+        },
+        "isbn": "9781503290563",
+        "publishedDate": "1813-01-28",
+        "addedDate": "2023-04-12",
+        "genre": "Romance",
+        "status": "available"
+      }
+    ]
+  }
