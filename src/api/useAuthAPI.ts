@@ -1,32 +1,51 @@
 import React from "react";
 import { AuthUser, UpdateUserRequest } from "../lib/types/User";
-import userData from '../data/users.json'
 import { Response } from "../lib/types/Response";
+import axios from "axios";
+import { API_URL, ApiRoutes } from "../lib/enums/ApiRoutes";
 
 // This hook is for the db operations, api reqeusts and returning it back to the handlers
 
 function useAuthAPI() {
-  //here it need to track all the users
-  // And need to 
-  const signInApi = async (email: string, password: string): Promise<Response> => {
+  const USER_API = API_URL + ApiRoutes.Users;
 
-    // check for email and password on the db
-    const user = userData.users.filter((user) => user.email === email && user.password === password)
-    if(!user.length){
-      return {isSuccess: false, data: {}, message: "Email or Password is incorrect"}
+  const signInApi = async (
+    email: string,
+    password: string
+  ): Promise<Response> => {
+    const usersData = await axios.get(USER_API);
+    if (usersData.data && usersData.data.length) {
+      const user = usersData.data.filter(
+        (user: any) => user.email === email && user.password === password
+      );
+      if (user.length) {
+        return { isSuccess: true, data: user[0], message: "Login Successfull" };
+      }
     }
 
-    return {isSuccess: true, data: user, message: "Login Successfull"}
-
+    return {
+      isSuccess: false,
+      data: {},
+      message: "Email or Password is incorrect",
+    };
   };
 
-  const signUpApi = async(userObject: AuthUser): Promise<Response> => {
-    
+  const signUpApi = async (userObject: AuthUser): Promise<Response> => {
+    const newUser = await axios.post(USER_API, userObject);
+    if (newUser) {
+      return {
+        isSuccess: true,
+        data: newUser,
+        message: "New User Created Successfull",
+      };
+    }
 
-    const newUser = userData.users.push(userObject)
-    return {isSuccess: true, data: newUser, message: "New User Created Successfull"}
-
-  }
+    return {
+      isSuccess: false,
+      data: {},
+      message: "User Registration Unsuccessfull",
+    };
+  };
 
   const getAllUsers = async () => {
     // return all the users from the dataset
@@ -43,7 +62,6 @@ function useAuthAPI() {
   const updateUser = async (userObj: UpdateUserRequest) => {
     // get userId from the userObj
     // update user
-
   };
 
   const deleteUser = async (userId: string) => {
