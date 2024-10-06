@@ -3,6 +3,7 @@ import { AuthUser, UpdateUserRequest } from "../lib/types/User";
 import { Response } from "../lib/types/Response";
 import axios from "axios";
 import { API_URL, ApiRoutes } from "../lib/enums/ApiRoutes";
+import { UserRoles } from "../lib/enums/UserRoles";
 
 // This hook is for the db operations, api reqeusts and returning it back to the handlers
 
@@ -49,23 +50,94 @@ function useAuthAPI() {
 
   const getAllUsers = async () => {
     // return all the users from the dataset
+    const users = await axios.get(USER_API);
+    if (users.data && users.data.length) {
+      return {
+        isSuccess: true,
+        data: users,
+        message: "User fetched successfully",
+      };
+    }
+
+    return {
+      isSuccess: false,
+      data: [],
+      message: "User are not fetched successfully",
+    };
   };
 
   const getMembers = async () => {
     // return users with role='Memeber'
+    const users = await axios.get(USER_API);
+    if (users.data && users.data.length) {
+      const members = users.data.filter(
+        (user: any) => user.role === UserRoles.Member
+      );
+      if (members.length) {
+        return {
+          isSuccess: true,
+          data: members,
+          message: "Memebers retrieved successfully",
+        };
+      }
+    }
+
+    return {
+      isSuccess: false,
+      data: [],
+      message: "Memebers retrieved unsuccessfully",
+    };
   };
 
   const getUserById = async (userId: string) => {
     // get user details by id
+    const user = axios.get(USER_API + "/" + userId);
+    console.log("user: ", user);
   };
 
-  const updateUser = async (userObj: UpdateUserRequest) => {
-    // get userId from the userObj
+  const updateUser = async (userObj: UpdateUserRequest): Promise<Response> => {
     // update user
+    const userId = userObj.id;
+    const updateUser = await axios.put(USER_API + "/" + userId, {
+      username: userObj.username,
+      name: userObj.name,
+      email: userObj.email,
+      role: userObj.role,
+    });
+
+    if (updateUser.status == 200) {
+      return {
+        isSuccess: true,
+        data: updateUser.data,
+        message: "User is updated",
+      };
+    }
+
+    return {
+      isSuccess: false,
+      data: {},
+      message: "User is not updated",
+    };
   };
 
-  const deleteUser = async (userId: string) => {
+  const deleteUserApi = async (userId: string): Promise<Response> => {
     // remove user from the dataset
+
+    const deletedUser = await axios.delete(USER_API + "/" + userId);
+
+    if (deletedUser.status == 200) {
+      return {
+        isSuccess: true,
+        data: {},
+        message: "User is Deleted",
+      };
+    }
+
+    return {
+      isSuccess: false,
+      data: {},
+      message: "User is not Deleted",
+    };
   };
 
   return {
@@ -75,7 +147,7 @@ function useAuthAPI() {
     getMembers,
     getUserById,
     updateUser,
-    deleteUser,
+    deleteUserApi,
   };
 }
 
