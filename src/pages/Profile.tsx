@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const Profile: React.FC = () => {
   //@ts-ignore
-  const user = JSON.parse(localStorage.getItem("user"));
+  const {user} = useAuth()
   const navigate = useNavigate();
   const { update, deleteUser } = useAuthHandler();
 
